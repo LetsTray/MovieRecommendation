@@ -6,9 +6,9 @@ similarity = pickle.load(open("similarity.pkl", "rb"))
 movies_list = movies['original_title'].values
 
 st.header("Movie Recommendation System")
-selectvalue = st.selectbox("Select a movie from dropdown", movies_list)
+selectvalue = st.selectbox("Select a movie title", movies_list)
 
-def recommand(movie) :
+def recommendedFilm(movie) :
     index = movies[movies['original_title']==movie].index[0]
     distance = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda vector:vector[1])
     recommend_movie=[]
@@ -17,7 +17,7 @@ def recommand(movie) :
     return recommend_movie
 
 if st.button("Show Recommendation"):
-    movie_name = recommand(selectvalue)
+    movie_name = recommendedFilm(selectvalue)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(movie_name[0])
